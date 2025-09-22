@@ -118,6 +118,10 @@ urlfix/
 ├── background.js          # Service worker with rule management
 ├── options.html           # Configuration page
 ├── options.js            # Configuration page logic
+├── icon16.png            # 16x16 extension icon
+├── icon32.png            # 32x32 extension icon
+├── icon48.png            # 48x48 extension icon
+├── icon128.png           # 128x128 extension icon
 └── README.md             # This file
 ```
 
