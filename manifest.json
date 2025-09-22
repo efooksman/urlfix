@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "URLFix",
+  "version": "1.0",
+  "description": "Automatically redirect URLs based on configurable regex patterns",
+  "permissions": ["declarativeNetRequest", "storage", "declarativeNetRequestFeedback"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_page": "options.html",
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}
