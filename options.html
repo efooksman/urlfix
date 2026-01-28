@@ -94,80 +94,212 @@
       font-weight: bold;
     }
 
-    .example-box {
+    /* Rule Cards */
+    #rules-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .rule-card {
       background: #f8f9fa;
       border: 1px solid #e9ecef;
       border-radius: 8px;
       padding: 20px;
-      margin-bottom: 20px;
-    }
-
-    .example-box h3 {
-      color: #495057;
-      margin-bottom: 10px;
-      font-size: 1.1rem;
-    }
-
-    .code {
-      background: #2d3748;
-      color: #e2e8f0;
-      padding: 12px;
-      border-radius: 6px;
-      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-      font-size: 0.9rem;
-      margin: 8px 0;
-      overflow-x: auto;
-      white-space: pre;
-    }
-
-    .code.inline {
-      display: inline;
-      padding: 4px 8px;
-      background: #e2e8f0;
-      color: #2d3748;
-      border-radius: 4px;
-    }
-
-    .form-group {
-      margin-bottom: 25px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      color: #333;
-    }
-
-    .textarea-container {
       position: relative;
     }
 
-    #rules {
-      width: 100%;
-      height: 300px;
-      padding: 20px;
-      border: 2px solid #e1e5e9;
-      border-radius: 8px;
-      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-      font-size: 14px;
-      line-height: 1.5;
-      resize: vertical;
-      transition: border-color 0.3s ease;
-      white-space: pre;
-      overflow-wrap: normal;
+    .rule-card.allow-rule {
+      border-left: 4px solid #28a745;
     }
 
-    #rules:focus {
+    .rule-card.redirect-rule {
+      border-left: 4px solid #007bff;
+    }
+
+    .rule-card.disabled {
+      opacity: 0.5;
+      background: #e9ecef;
+    }
+
+    .rule-card.disabled .field-input,
+    .rule-card.disabled .field-select {
+      background: #dee2e6;
+    }
+
+    /* Toggle Switch */
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 22px;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.2s;
+      border-radius: 22px;
+    }
+
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.2s;
+      border-radius: 50%;
+    }
+
+    .toggle-switch input:checked + .toggle-slider {
+      background-color: #28a745;
+    }
+
+    .toggle-switch input:checked + .toggle-slider:before {
+      transform: translateX(18px);
+    }
+
+    .rule-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .rule-number {
+      font-weight: 600;
+      color: #495057;
+      font-size: 0.9rem;
+    }
+
+    .rule-header .action-select {
+      padding: 6px 10px;
+      font-size: 0.85rem;
+    }
+
+    .rule-header .priority-input {
+      width: 55px;
+      padding: 6px 8px;
+      font-size: 0.85rem;
+    }
+
+    .priority-label {
+      font-size: 0.8rem;
+      color: #6c757d;
+      margin-left: auto;
+    }
+
+    .delete-rule {
+      background: none;
+      border: none;
+      color: #dc3545;
+      cursor: pointer;
+      padding: 5px;
+      font-size: 1.2rem;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .delete-rule:hover {
+      opacity: 1;
+    }
+
+    .rule-fields {
+      display: grid;
+      gap: 12px;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .field-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #495057;
+    }
+
+    .field-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ced4da;
+      border-radius: 6px;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 0.9rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .field-input:focus {
       outline: none;
       border-color: #6c757d;
       box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.1);
     }
 
+    .field-input.small {
+      width: 70px;
+      text-align: center;
+    }
+
+    .field-select {
+      padding: 10px 12px;
+      border: 1px solid #ced4da;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      background: white;
+      cursor: pointer;
+    }
+
+    .field-select:focus {
+      outline: none;
+      border-color: #6c757d;
+      box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.1);
+    }
+
+    .replacement-row {
+      display: none;
+    }
+
+    .replacement-row.visible {
+      display: grid;
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      color: #6c757d;
+    }
+
+    .empty-state p {
+      margin-bottom: 15px;
+    }
+
+    /* Buttons */
     .button-group {
       display: flex;
       gap: 15px;
       margin-bottom: 20px;
+      flex-wrap: wrap;
     }
 
     button {
@@ -181,6 +313,17 @@
       display: flex;
       align-items: center;
       gap: 8px;
+    }
+
+    #add-rule {
+      background: #28a745;
+      color: white;
+    }
+
+    #add-rule:hover {
+      background: #218838;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     #save {
@@ -205,12 +348,24 @@
       transform: translateY(-1px);
     }
 
+    #toggle-json {
+      background: #f8f9fa;
+      color: #495057;
+      border: 2px solid #e9ecef;
+      margin-left: auto;
+    }
+
+    #toggle-json:hover {
+      background: #e9ecef;
+    }
+
     #status {
       padding: 15px;
       border-radius: 8px;
       margin-bottom: 20px;
       font-weight: 500;
       display: none;
+      white-space: pre-wrap;
     }
 
     #status.success {
@@ -234,6 +389,61 @@
       display: block;
     }
 
+    /* JSON Editor (hidden by default) */
+    .json-editor {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .json-editor.visible {
+      display: block;
+    }
+
+    .json-editor h3 {
+      color: #495057;
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+
+    #rules-json {
+      width: 100%;
+      height: 200px;
+      padding: 15px;
+      border: 2px solid #e1e5e9;
+      border-radius: 8px;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 13px;
+      line-height: 1.5;
+      resize: vertical;
+    }
+
+    #rules-json:focus {
+      outline: none;
+      border-color: #6c757d;
+      box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.1);
+    }
+
+    .json-actions {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .json-actions button {
+      padding: 8px 16px;
+      font-size: 0.9rem;
+    }
+
+    #apply-json {
+      background: #17a2b8;
+      color: white;
+    }
+
+    #apply-json:hover {
+      background: #138496;
+    }
+
+    /* Debug info */
     #debug-info {
       background: #f8f9fa;
       border: 1px solid #e9ecef;
@@ -254,18 +464,15 @@
       padding: 15px;
       border-radius: 6px;
       font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       overflow-x: auto;
       white-space: pre-wrap;
+      max-height: 300px;
+      overflow-y: auto;
     }
 
-    .help-text {
-      color: #6c757d;
-      font-size: 0.9rem;
-      margin-top: 8px;
-    }
-
-    .regex-tips {
+    /* Tips */
+    .tips {
       background: #f8f9fa;
       border: 1px solid #e9ecef;
       border-radius: 8px;
@@ -273,18 +480,27 @@
       margin-top: 20px;
     }
 
-    .regex-tips h3 {
+    .tips h3 {
       color: #495057;
       margin-bottom: 10px;
     }
 
-    .regex-tips ul {
+    .tips ul {
       color: #6c757d;
       margin-left: 20px;
     }
 
-    .regex-tips li {
+    .tips li {
       margin-bottom: 5px;
+    }
+
+    .code {
+      background: #e2e8f0;
+      color: #2d3748;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 0.85rem;
     }
 
     @media (max-width: 768px) {
@@ -292,21 +508,38 @@
         margin: 10px;
         border-radius: 12px;
       }
-      
+
       .header {
         padding: 20px;
       }
-      
+
       .header h1 {
         font-size: 2rem;
       }
-      
+
       .content {
         padding: 20px;
       }
-      
+
       .button-group {
         flex-direction: column;
+      }
+
+      #toggle-json {
+        margin-left: 0;
+      }
+
+      .field-row {
+        grid-template-columns: 1fr;
+        gap: 5px;
+      }
+
+      .rule-header {
+        flex-wrap: wrap;
+      }
+
+      .priority-label {
+        margin-left: 0;
       }
     }
   </style>
@@ -322,61 +555,58 @@
       </h1>
       <p>Configure URL redirection rules with regex patterns</p>
     </div>
-    
+
     <div class="content">
       <div class="section">
-        <h2><span class="icon">📝</span>Configuration</h2>
-        
-        <div class="example-box">
-          <h3>💡 Example Rule</h3>
-          <p>This rule redirects Google Photos URLs to use the <span class="code inline">/u/0/</span> path:</p>
-          <div class="code">{
-  "pattern": "photos\\.google\\.com/([^u]|$)",
-  "replacement": "photos.google.com/u/0/$1"
-}</div>
-          <p><strong>Result:</strong> <span class="code inline">photos.google.com/photo</span> → <span class="code inline">photos.google.com/u/0/photo</span></p>
-        </div>
+        <h2><span class="icon">+</span> Rules</h2>
 
-        <div class="form-group">
-          <label for="rules">Rules Configuration (JSON)</label>
-          <div class="textarea-container">
-            <textarea id="rules" placeholder='[
-  {
-    "pattern": "photos\\.google\\.com/([^u]|$)",
-    "replacement": "photos.google.com/u/0/$1"
-  }
-]'></textarea>
-          </div>
-          <div class="help-text">Use capture groups with $1, $2, etc. in replacements. Each rule needs a pattern and replacement.</div>
+        <div id="rules-container">
+          <!-- Rules will be rendered here -->
         </div>
 
         <div class="button-group">
+          <button id="add-rule">
+            <span>+</span>
+            Add Rule
+          </button>
           <button id="save">
-            <span>💾</span>
+            <span>&#128190;</span>
             Save Rules
           </button>
           <button id="debug">
-            <span>🔍</span>
-            Show Active Rules
+            <span>&#128269;</span>
+            Show Active
+          </button>
+          <button id="toggle-json">
+            <span>{ }</span>
+            JSON
           </button>
         </div>
 
         <div id="status"></div>
 
+        <div class="json-editor" id="json-editor">
+          <h3>Raw JSON Editor</h3>
+          <textarea id="rules-json" placeholder="[]"></textarea>
+          <div class="json-actions">
+            <button id="apply-json">Apply JSON to Editor</button>
+          </div>
+        </div>
+
         <div id="debug-info">
-          <h3>🔧 Active Rules in Extension</h3>
+          <h3>Active Rules in Chrome</h3>
           <pre id="active-rules"></pre>
         </div>
       </div>
 
-      <div class="regex-tips">
-        <h3>📚 Regex Tips</h3>
+      <div class="tips">
+        <h3>Tips</h3>
         <ul>
-          <li><strong>Escape dots:</strong> Use <span class="code inline">\\.</span> instead of <span class="code inline">.</span> to match literal dots</li>
-          <li><strong>Capture groups:</strong> Use <span class="code inline">(pattern)</span> to capture parts of the URL</li>
-          <li><strong>Character classes:</strong> Use <span class="code inline">[^u]</span> to match any character except 'u'</li>
-          <li><strong>Anchors:</strong> Use <span class="code inline">^</span> for start of string, <span class="code inline">$</span> for end of string</li>
-          <li><strong>Alternatives:</strong> Use <span class="code inline">(pattern1|pattern2)</span> for either/or matching</li>
+          <li><strong>Toggle:</strong> Use the switch to enable/disable rules without deleting them</li>
+          <li><strong>Allow rules:</strong> Use to create exceptions (e.g., "don't redirect if X is already present")</li>
+          <li><strong>Priority:</strong> Higher number = checked first. Use priority 2 for "allow" exceptions, priority 1 for redirects</li>
+          <li><strong>Capture groups:</strong> Use <span class="code">(pattern)</span> in regex, reference with <span class="code">$1</span>, <span class="code">$2</span> in replacement</li>
+          <li><strong>Escape special chars:</strong> Use <span class="code">\\.</span> for literal dot, <span class="code">\\?</span> for literal question mark</li>
         </ul>
       </div>
     </div>

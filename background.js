@@ -35,7 +35,7 @@ async function updateRules(rules) {
     // First, get existing rules to remove them
     const existingRules = await chrome.declarativeNetRequest.getDynamicRules();
     const existingRuleIds = existingRules.map(rule => rule.id);
-    
+
     // Remove all existing rules
     if (existingRuleIds.length > 0) {
       await chrome.declarativeNetRequest.updateDynamicRules({
@@ -49,26 +49,47 @@ async function updateRules(rules) {
     }
 
     const formattedRules = rules.map((rule, index) => {
-      if (!rule.pattern || !rule.replacement) {
-        console.error(`Rule ${index + 1} is missing pattern or replacement`);
+      // Skip disabled rules
+      if (rule.enabled === false) {
         return null;
       }
 
-      // Convert $1, $2, etc. to \1, \2, etc. for Chrome's regexSubstitution
-      let replacement = rule.replacement.replace(/\$(\d+)/g, '\\$1');
+      const actionType = rule.action || "redirect";
+      const priority = rule.priority || 1;
+
+      if (!rule.pattern) {
+        console.error(`Rule ${index + 1} is missing pattern`);
+        return null;
+      }
+
+      // For redirect action, replacement is required
+      if (actionType === "redirect" && !rule.replacement) {
+        console.error(`Rule ${index + 1} is a redirect but missing replacement`);
+        return null;
+      }
+
+      // Build the action object based on action type
+      let action;
+      if (actionType === "allow") {
+        action = { type: "allow" };
+      } else {
+        // Convert $1, $2, etc. to \1, \2, etc. for Chrome's regexSubstitution
+        let replacement = rule.replacement.replace(/\$(\d+)/g, '\\$1');
+        action = {
+          type: "redirect",
+          redirect: {
+            regexSubstitution: replacement
+          }
+        };
+      }
 
       return {
         id: index + 1,
-        priority: 1,
-        action: { 
-          type: "redirect", 
-          redirect: { 
-            regexSubstitution: replacement 
-          } 
-        },
-        condition: { 
-          regexFilter: rule.pattern, 
-          resourceTypes: ["main_frame", "sub_frame"] 
+        priority: priority,
+        action: action,
+        condition: {
+          regexFilter: rule.pattern,
+          resourceTypes: ["main_frame", "sub_frame"]
         }
       };
     }).filter(rule => rule !== null);
