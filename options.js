@@ -188,12 +188,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Clean up rules before saving (remove empty optional fields)
     const cleanedRules = rules.map(rule => {
+      const action = rule.action || "redirect";
       const cleaned = { pattern: rule.pattern };
-      if (rule.action === "redirect") {
+      if (action === "redirect") {
         cleaned.replacement = rule.replacement;
       }
-      if (rule.action && rule.action !== "redirect") {
-        cleaned.action = rule.action;
+      if (action !== "redirect") {
+        cleaned.action = action;
       }
       if (rule.priority && rule.priority !== 1) {
         cleaned.priority = rule.priority;
